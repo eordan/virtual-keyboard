@@ -56,10 +56,10 @@ function generateRow(row) {
     // Add a custom class to certain keys to make them wider
     switch (row[i]) {
       case "Enter":
-        key.classList.add("special");
+        key.classList.add("enter");
         break;
       case "Shift":
-        key.classList.add("special");
+        key.classList.add("shift");
         break;
       case "Backspace":
         key.classList.add("backspace");
@@ -72,6 +72,13 @@ function generateRow(row) {
         break;
       case " ":
         key.classList.add("space");
+        break;
+      case "Ctrl":
+        key.classList.add("ctrl");
+        break;
+      case "EN":
+      case "RU":
+        key.classList.add("lang-key");
         break;
       default:
         key.classList.add("letter");
