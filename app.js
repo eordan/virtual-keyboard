@@ -14,9 +14,35 @@ const EN_UPPERCASE = [
   ["Ctrl", "Win", "Alt", " ", "Alt", "Ctrl", "←", "↓", "→", "EN"]
 ];
 
+const RU_LOWERCASE = [
+  ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "Backspace"],
+  ["Tab", "й", "ц", "у", "r", "t", "y", "u", "i", "o", "p", "[", "]", "\\", "Del"],
+  ["Caps Lock", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "Enter"],
+  ["Shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "↑", "Shift"],
+  ["Ctrl", "Win", "Alt", " ", "Alt", "Ctrl", "←", "↓", "→", "RU"]
+];
+
+const RU_UPPERCASE = [
+  ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "Backspace"],
+  ["Tab", "Й", "Ц", "У", "R", "T", "Y", "U", "I", "O", "P", "[", "]", "\\", "Del"],
+  ["Caps Lock", "A", "S", "D", "F", "G", "H", "J", "K", "L", ";", "'", "Enter"],
+  ["Shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "↑", "Shift"],
+  ["Ctrl", "Win", "Alt", " ", "Alt", "Ctrl", "←", "↓", "→", "RU"]
+];
+
 let keyboardContainer = null;
 let isShiftPressed = false;
 let isCapsLockOn = false;
+
+
+// Check if isEnglish is already stored in localStorage
+if (localStorage.getItem('isEnglish') !== null) {
+  isEnglish = JSON.parse(localStorage.getItem('isEnglish'));
+} else {
+  isEnglish = true;
+}
+
+console.log('Local Storage = ' + isEnglish)
 
 // Generate ONE row in the keyboard
 function generateRow(row) {
@@ -77,21 +103,35 @@ function generateKeyboard(rows) {
   }
 }
 
-generateKeyboard(isCapsLockOn ? EN_UPPERCASE : EN_LOWERCASE);
+generateKeyboard(isEnglish ? EN_LOWERCASE : RU_LOWERCASE);
 
+// Switch lowercase and upper case
 document.addEventListener("keydown", (event) => {
   if (event.key === "Shift") {
     isShiftPressed = true;
-    generateKeyboard(EN_UPPERCASE);
+    generateKeyboard(isEnglish ? EN_UPPERCASE : RU_UPPERCASE);
   } else if (event.key === "CapsLock") {
     isCapsLockOn = !isCapsLockOn;
-    generateKeyboard(isCapsLockOn ? EN_UPPERCASE : EN_LOWERCASE);
+      if (isEnglish) {
+        generateKeyboard(isCapsLockOn ? EN_UPPERCASE : EN_LOWERCASE);
+      } else {
+        generateKeyboard(isCapsLockOn ? RU_UPPERCASE : RU_LOWERCASE);
+      }
   }
 });
 
 document.addEventListener("keyup", (event) => {
   if (event.key === "Shift") {
     isShiftPressed = false;
-    generateKeyboard(EN_LOWERCASE);
+    generateKeyboard(isEnglish ? EN_LOWERCASE : RU_LOWERCASE);
+  }
+});
+
+// Switch languages
+document.addEventListener("keydown", (event) => {
+  if (event.shiftKey && event.altKey) {
+    isEnglish = !isEnglish;
+    localStorage.setItem('isEnglish', isEnglish); // Store value in localStorage
+    generateKeyboard(isEnglish ? EN_LOWERCASE : RU_LOWERCASE);
   }
 });
