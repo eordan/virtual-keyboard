@@ -50,6 +50,7 @@
   background-color: #fff;
   font-family: Arial, sans-serif;
   font-size: small;
+  user-select: none;
 }
 
 .keys:hover {
