@@ -34,7 +34,6 @@ let keyboardContainer = null;
 let isShiftPressed = false;
 let isCapsLockOn = false;
 
-
 // Check if isEnglish is already stored in localStorage
 if (localStorage.getItem('isEnglish') !== null) {
   isEnglish = JSON.parse(localStorage.getItem('isEnglish'));
@@ -42,7 +41,42 @@ if (localStorage.getItem('isEnglish') !== null) {
   isEnglish = true;
 }
 
-console.log('Local Storage = ' + isEnglish)
+generateKeybpardArea();
+generateKeyboard(isEnglish ? EN_LOWERCASE : RU_LOWERCASE);
+
+
+
+
+// Switch lowercase and upper case
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Shift") {
+    isShiftPressed = true;
+    generateKeyboard(isEnglish ? EN_UPPERCASE : RU_UPPERCASE);
+  } else if (event.key === "CapsLock") {
+    isCapsLockOn = !isCapsLockOn;
+      if (isEnglish) {
+        generateKeyboard(isCapsLockOn ? EN_UPPERCASE : EN_LOWERCASE);
+      } else {
+        generateKeyboard(isCapsLockOn ? RU_UPPERCASE : RU_LOWERCASE);
+      }
+  }
+});
+
+document.addEventListener("keyup", (event) => {
+  if (event.key === "Shift") {
+    isShiftPressed = false;
+    generateKeyboard(isEnglish ? EN_LOWERCASE : RU_LOWERCASE);
+  }
+});
+
+// Switch languages
+document.addEventListener("keydown", (event) => {
+  if (event.shiftKey && event.altKey) {
+    isEnglish = !isEnglish;
+    localStorage.setItem('isEnglish', isEnglish); // Store value in localStorage
+    generateKeyboard(isEnglish ? EN_LOWERCASE : RU_LOWERCASE);
+  }
+});
 
 // Generate ONE row in the keyboard
 function generateRow(row) {
@@ -89,10 +123,9 @@ function generateRow(row) {
   }
 
   return generatedRow;
-}
+};
 
 function generateKeyboard(rows) {
-  console.log(isCapsLockOn)
   if (!keyboardContainer) {
     keyboardContainer = document.createElement('div');
     keyboardContainer.classList.add('keyboard-container');
@@ -108,37 +141,29 @@ function generateKeyboard(rows) {
     const row = generateRow(rows[i]);
     keyboardContainer.appendChild(row);
   }
+};
+
+function generateKeybpardArea() {
+  const areaContainer = document.createElement("textarea");
+  areaContainer.classList.add('area-container');
+  areaContainer.setAttribute('autofocus', '');
+  document.body.appendChild(areaContainer);
 }
 
-generateKeyboard(isEnglish ? EN_LOWERCASE : RU_LOWERCASE);
+function addKeyListeners() {
+  const keys = document.querySelectorAll('.key');
 
-// Switch lowercase and upper case
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Shift") {
-    isShiftPressed = true;
-    generateKeyboard(isEnglish ? EN_UPPERCASE : RU_UPPERCASE);
-  } else if (event.key === "CapsLock") {
-    isCapsLockOn = !isCapsLockOn;
-      if (isEnglish) {
-        generateKeyboard(isCapsLockOn ? EN_UPPERCASE : EN_LOWERCASE);
-      } else {
-        generateKeyboard(isCapsLockOn ? RU_UPPERCASE : RU_LOWERCASE);
-      }
-  }
-});
+  keys.forEach(key => {
+    key.addEventListener('mousedown', () => {
+      key.classList.add('active');
+    });
 
-document.addEventListener("keyup", (event) => {
-  if (event.key === "Shift") {
-    isShiftPressed = false;
-    generateKeyboard(isEnglish ? EN_LOWERCASE : RU_LOWERCASE);
-  }
-});
+    key.addEventListener('mouseup', () => {
+      key.classList.remove('active');
+    });
 
-// Switch languages
-document.addEventListener("keydown", (event) => {
-  if (event.shiftKey && event.altKey) {
-    isEnglish = !isEnglish;
-    localStorage.setItem('isEnglish', isEnglish); // Store value in localStorage
-    generateKeyboard(isEnglish ? EN_LOWERCASE : RU_LOWERCASE);
-  }
-});
+    key.addEventListener('mouseleave', () => {
+      key.classList.remove('active');
+    });
+  });
+}
