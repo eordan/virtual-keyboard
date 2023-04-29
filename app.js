@@ -34,48 +34,86 @@ let keyboardContainer = null;
 let isShiftPressed = false;
 let isCapsLockOn = false;
 
-// Check if isEnglish is already stored in localStorage
-if (localStorage.getItem('isEnglish') !== null) {
-  isEnglish = JSON.parse(localStorage.getItem('isEnglish'));
-} else {
-  isEnglish = true;
+// START MAIN PART
+
+switchLanguages(); // 1. Switch languages
+generateTextarea(); // 2. Generate text area
+generateKeyboard(isEnglish ? EN_LOWERCASE : RU_LOWERCASE); // 3. Generate the whole keyboard
+switchCase(); // 4. Switch lowercase and upper case
+
+// END MAIN PART
+
+// 1. Switch languages
+function switchLanguages() {
+  // Check if isEnglish is already stored in localStorage
+  if (localStorage.getItem('isEnglish') !== null) {
+    isEnglish = JSON.parse(localStorage.getItem('isEnglish'));
+  } else {
+    isEnglish = true;
+  }
+
+  // Switch languages
+  document.addEventListener("keydown", (event) => {
+    if (event.shiftKey && event.altKey) {
+      isEnglish = !isEnglish;
+      localStorage.setItem('isEnglish', isEnglish); // Store value in localStorage
+      generateKeyboard(isEnglish ? EN_LOWERCASE : RU_LOWERCASE);
+    }
+  });
 }
 
-generateKeybpardArea();
-generateKeyboard(isEnglish ? EN_LOWERCASE : RU_LOWERCASE);
+// 2. Generate text area
+function generateTextarea() {
+  const areaContainer = document.createElement("textarea");
+  areaContainer.classList.add('area-container');
+  areaContainer.setAttribute('autofocus', '');
+  document.body.appendChild(areaContainer);
+}
 
-// Switch lowercase and upper case
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Shift") {
-    isShiftPressed = true;
-    generateKeyboard(isEnglish ? EN_UPPERCASE : RU_UPPERCASE);
-  } else if (event.key === "CapsLock") {
-    isCapsLockOn = !isCapsLockOn;
-      if (isEnglish) {
-        generateKeyboard(isCapsLockOn ? EN_UPPERCASE : EN_LOWERCASE);
-      } else {
-        generateKeyboard(isCapsLockOn ? RU_UPPERCASE : RU_LOWERCASE);
-      }
+// 3. Generate the whole keyboard
+function generateKeyboard(rows) {
+  if (!keyboardContainer) {
+    keyboardContainer = document.createElement('div');
+    keyboardContainer.classList.add('keyboard-container');
+    document.body.appendChild(keyboardContainer);
   }
-});
-
-document.addEventListener("keyup", (event) => {
-  if (event.key === "Shift") {
-    isShiftPressed = false;
-    generateKeyboard(isEnglish ? EN_LOWERCASE : RU_LOWERCASE);
+  // Remove any existing rows from the keyboard container
+  while (keyboardContainer.firstChild) {
+    keyboardContainer.removeChild(keyboardContainer.firstChild);
   }
-});
 
-// Switch languages
-document.addEventListener("keydown", (event) => {
-  if (event.shiftKey && event.altKey) {
-    isEnglish = !isEnglish;
-    localStorage.setItem('isEnglish', isEnglish); // Store value in localStorage
-    generateKeyboard(isEnglish ? EN_LOWERCASE : RU_LOWERCASE);
+  // Create rows and append them to the keyboard container
+  for (let i = 0; i < rows.length; i++) {
+    const row = generateRow(rows[i]);
+    keyboardContainer.appendChild(row);
   }
-});
+};
 
-// Generate ONE row in the keyboard
+// 4. Switch lowercase and upper case
+function switchCase() {
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Shift") {
+      isShiftPressed = true;
+      generateKeyboard(isEnglish ? EN_UPPERCASE : RU_UPPERCASE);
+    } else if (event.key === "CapsLock") {
+      isCapsLockOn = !isCapsLockOn;
+        if (isEnglish) {
+          generateKeyboard(isCapsLockOn ? EN_UPPERCASE : EN_LOWERCASE);
+        } else {
+          generateKeyboard(isCapsLockOn ? RU_UPPERCASE : RU_LOWERCASE);
+        }
+    }
+  });
+
+  document.addEventListener("keyup", (event) => {
+    if (event.key === "Shift") {
+      isShiftPressed = false;
+      generateKeyboard(isEnglish ? EN_LOWERCASE : RU_LOWERCASE);
+    }
+  });
+}
+
+// Generate ONE row in the keyboard || !!! MAIN FUNCTIONALITY !!!
 function generateRow(row) {
   const generatedRow = document.createElement("div");
   generatedRow.classList.add("row");
@@ -146,28 +184,3 @@ function generateRow(row) {
 
   return generatedRow;
 };
-
-function generateKeyboard(rows) {
-  if (!keyboardContainer) {
-    keyboardContainer = document.createElement('div');
-    keyboardContainer.classList.add('keyboard-container');
-    document.body.appendChild(keyboardContainer);
-  }
-  // Remove any existing rows from the keyboard container
-  while (keyboardContainer.firstChild) {
-    keyboardContainer.removeChild(keyboardContainer.firstChild);
-  }
-
-  // Create rows and append them to the keyboard container
-  for (let i = 0; i < rows.length; i++) {
-    const row = generateRow(rows[i]);
-    keyboardContainer.appendChild(row);
-  }
-};
-
-function generateKeybpardArea() {
-  const areaContainer = document.createElement("textarea");
-  areaContainer.classList.add('area-container');
-  areaContainer.setAttribute('autofocus', '');
-  document.body.appendChild(areaContainer);
-}
