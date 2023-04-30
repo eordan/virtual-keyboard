@@ -70,7 +70,16 @@ body {
 }
 
 .highlight {
-  background-color: rgba(0, 255, 255, 0.5) !important;
+  background-color: rgba(0, 255, 255, 0.5);
+}
+
+.lang-key {
+  background-color: rgba(0, 255, 255, 0.5); 
+}
+
+.lang-key:hover {
+  background-color: rgba(0, 255, 255, 0.5);
+  cursor: default;
 }
 
 /* Special keys */

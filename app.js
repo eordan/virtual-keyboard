@@ -166,13 +166,43 @@ class Keyboard {
       }
     });
     document.addEventListener("keydown", (event) => {
-      const shiftKeys = document.querySelectorAll(".symbol");
-      if (event.key === "g") {
-        shiftKeys.forEach((key) => {
-          key.classList.add("highlight");
-        });
+      const enterKey = document.querySelector(".enter");
+      if (event.key === "Enter") {
+        enterKey.classList.add("highlight");
       }
     });
+    document.addEventListener("keyup", (event) => {
+      const enterKey = document.querySelector(".enter");
+      if (event.key === "Enter") {
+        enterKey.classList.remove("highlight");
+      }
+    });
+    document.addEventListener("keydown", (event) => {
+      const enterKey = document.querySelector(".backspace");
+      if (event.code === "Backspace") {
+        enterKey.classList.add("highlight");
+      }
+    });
+    document.addEventListener("keyup", (event) => {
+      const enterKey = document.querySelector(".backspace");
+      if (event.code === "Backspace") {
+        enterKey.classList.remove("highlight");
+      }
+    });
+    document.addEventListener("keydown", (event) => {
+      const enterKey = document.querySelector(".caps-lock");
+      if (event.key === "CapsLock") {
+        enterKey.classList.add("highlight");
+      }
+    });
+    document.addEventListener("keyup", (event) => {
+      const enterKey = document.querySelector(".caps-lock");
+      if (event.key === "CapsLock") {
+        enterKey.classList.remove("highlight");
+      }
+    });
+
+    
   }
   generateFunctionalKeyboard() {
     this.switchLanguages();
