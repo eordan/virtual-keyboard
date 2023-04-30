@@ -109,11 +109,15 @@ canvas {
 }
 
 /* Special keys */
+.ShiftLeft {
+  width: 126px;
+}
+
 .keys.shift {
   width: 126px;
 }
 
-.keys.enter {
+.Enter {
   width: 136px;
 }
 

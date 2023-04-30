@@ -128,7 +128,7 @@ class Keyboard {
       const row = this.generateRow(rows[i]);
       this.keyboardContainer.appendChild(row);
     }
-  };
+  }
   generateRow(row) {
     const generatedRow = document.createElement("div");
     generatedRow.classList.add("row");
@@ -141,13 +141,17 @@ class Keyboard {
       inKey.textContent = row[key];
       document.addEventListener("keydown", (event) => { if (event.code === key) inKey.classList.add("highlight") });
       document.addEventListener("keyup", (event) => { if (event.code === key) inKey.classList.remove("highlight") });
-      document.addEventListener("keydown", (event) => { if (event.keyCode === "91") inKey.classList.add("highlight") });
-      document.addEventListener("keyup", (event) => { if (event.code === key) inKey.classList.remove("highlight") });
+      inKey.addEventListener('mousedown', (event) => { event.preventDefault(); });
 
       switch (key) {
         case "Enter":
-          inKey.classList.add("enter");
-          inKey.onclick = () => { textArea.value = textArea.value.slice(0, textArea.selectionStart) + '\n' + textArea.value.slice(textArea.selectionEnd) };
+          inKey.onclick = () => {
+            const start = textArea.selectionStart;
+            const end = textArea.selectionEnd;
+            textArea.value = textArea.value.slice(0, start) + '\n' + textArea.value.slice(end);
+            textArea.selectionStart = textArea.selectionEnd = start + 1;
+            textArea.focus();
+          };
           break;
         case "ShiftLeft":
         case "ShiftRight":
@@ -197,11 +201,10 @@ class Keyboard {
             const start = textArea.selectionStart;
             const end = textArea.selectionEnd;
             textArea.value = textArea.value.slice(0, start) + inKey.textContent + textArea.value.slice(end);
-            textArea.selectionStart = start + 1;
-            textArea.selectionEnd = start + 1;
-          };          
+            textArea.selectionStart = textArea.selectionEnd = start + 1;
+            textArea.focus();
+          };
       }
-
       generatedRow.appendChild(inKey);
     }
     return generatedRow;
