@@ -1,3 +1,41 @@
+class Background {
+  constructor() {
+    this.matrix = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+    this.backgroundContainer = document.createElement("canvas");
+    this.backgroundContainer.setAttribute("id","matrix");
+    document.body.appendChild(this.backgroundContainer);
+    this.canvas = document.getElementById("matrix");
+    this.ctx = this.canvas.getContext("2d");
+    this.canvas.height = window.innerHeight; // Making the canvas full screen
+    this.canvas.width = window.innerWidth; // Making the canvas full screen
+
+    // Converting the string into an array of single characters
+    this.matrix = this.matrix.split("");
+    this.drops = []; // An array of drops - one per column
+    // x below is the x coordinate
+    // 1 = y co-ordinate of the drop(same for every drop initially)
+    for(var x = 0; x < this.canvas.width/10; x++) this.drops[x] = 1; 
+    // Set up draw function to be called repeatedly
+    setInterval(this.generateBackground.bind(this), 35);
+  }
+
+  generateBackground() {
+    this.ctx.fillStyle = "rgba(0, 0, 0, 0.04)"; // Black BG for the canvas
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height); // Translucent BG to show trail
+    this.ctx.fillStyle = "green"; // Green text
+    this.ctx.font = 10 + "px arial";
+    // Looping over drops
+    for(var i = 0; i < this.drops.length; i++) {
+        var text = this.matrix[Math.floor(Math.random()*this.matrix.length)]; // A random chinese character to print
+        this.ctx.fillText(text, i*10, this.drops[i]*10); // x = i*font_size, y = value of drops[i]*font_size
+        // Sending the drop back to the top randomly after it has crossed the screen
+        // Aadding a randomness to the reset to make the drops scattered on the Y axis
+        if(this.drops[i]*10 > this.canvas.height && Math.random() > 0.975) this.drops[i] = 0;
+        this.drops[i]++; // Incrementing Y coordinate
+    }
+  }
+}
+
 class Textarea {
   generateTextarea() {
     const areaContainer = document.createElement("textarea");
@@ -19,32 +57,32 @@ class Keyboard {
     this.isCapsLockOn = false;
     this.keyboardContainer = null;
     this.EN_LOWERCASE = [
-      ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "Backspace"],
-      ["Tab", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "\\", "Del"],
-      ["Caps Lock", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "Enter"],
-      ["Shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "↑", "Shift"],
-      ["Ctrl", "Win", "Alt", " ", "Alt", "Ctrl", "←", "↓", "→", "EN"]
+      {"Backquote": "`", "Digit1": "1", "Digit2": "2", "Digit3": "3", "Digit4": "4", "Digit5": "5", "Digit6": "6", "Digit7": "7", "Digit8": "8", "Digit9": "9", "Digit0": "0", "Minus": "-", "Equal": "=", "Backspace": "Backspace"},
+      {"Tab": "Tab", "KeyQ": "q", "KeyW": "w", "KeyE": "e", "KeyR": "r", "KeyT": "t", "KeyY": "y", "KeyU": "u", "KeyI": "i", "KeyO": "o", "KeyP": "p", "BracketLeft": "[", "BracketRight": "]", "Backslash": "\\", "Delete": "Del"},
+      {"CapsLock": "Caps Lock", "KeyA": "a", "KeyS": "s", "KeyD": "d", "KeyF": "f", "KeyG": "g", "KeyH": "h", "KeyJ": "j", "KeyK": "k", "KeyL": "l", "Semicolon": ";", "Quote": "'", "Enter": "Enter"},
+      {"ShiftLeft": "Shift", "KeyZ": "z", "KeyX": "x", "KeyC": "c", "KeyV": "v", "KeyB": "b", "KeyN": "n", "KeyM": "m", "Comma": ",", "Period": ".", "Slash": "/", "ArrowUp": "↑", "ShiftRight": "Shift"},
+      {"ControlLeft": "Ctrl", "MetaLeft": "Win", "AltLeft": "Alt", "Space": " ", "AltRight": "Alt", "ControlRight": "Ctrl", "ArrowLeft": "←", "ArrowDown": "↓", "ArrowRight": "→", "Lang": "EN"}
     ];
-    this.EN_UPPERCASE = [ 
-      ["~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "Backspace"],
-      ["Tab", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "{", "}", "|", "Del"],
-      ["Caps Lock", "A", "S", "D", "F", "G", "H", "J", "K", "L", ":", "\"", "Enter"],
-      ["Shift", "Z", "X", "C", "V", "B", "N", "M", "<", ">", "?", "↑", "Shift"],
-      ["Ctrl", "Win", "Alt", " ", "Alt", "Ctrl", "←", "↓", "→", "EN"]
+    this.EN_UPPERCASE = [
+      {"Backquote": "~", "Digit1": "!", "Digit2": "@", "Digit3": "#", "Digit4": "$", "Digit5": "%", "Digit6": "^", "Digit7": "&", "Digit8": "*", "Digit9": "(", "Digit0": ")", "Minus": "_", "Equal": "+", "Backspace": "Backspace"},
+      {"Tab": "Tab", "KeyQ": "Q", "KeyW": "W", "KeyE": "E", "KeyR": "R", "KeyT": "T", "KeyY": "Y", "KeyU": "U", "KeyI": "I", "KeyO": "O", "KeyP": "P", "BracketLeft": "{", "BracketRight": "}", "Backslash": "|", "Delete": "Del"},
+      {"CapsLock": "Caps Lock", "KeyA": "A", "KeyS": "S", "KeyD": "D", "KeyF": "F", "KeyG": "G", "KeyH": "H", "KeyJ": "J", "KeyK": "K", "KeyL": "L", "Semicolon": ":", "Quote": "\"", "Enter": "Enter"},
+      {"ShiftLeft": "Shift", "KeyZ": "Z", "KeyX": "X", "KeyC": "C", "KeyV": "V", "KeyB": "B", "KeyN": "N", "KeyM": "M", "Comma": "<", "Period": ">", "Slash": "?", "ArrowUp": "↑", "ShiftRight": "Shift"},
+      {"ControlLeft": "Ctrl", "MetaLeft": "Win", "AltLeft": "Alt", "Space": " ", "AltRight": "Alt", "ControlRight": "Ctrl", "ArrowLeft": "←", "ArrowDown": "↓", "ArrowRight": "→", "Lang": "EN"}
     ];
-    this.RU_LOWERCASE = [ 
-      ["ё", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "Backspace"],
-      ["Tab", "й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ", "\\", "Del"],
-      ["Caps Lock", "ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж", "э", "Enter"],
-      ["Shift", "я", "ч", "с", "м", "и", "т", "ь", "б", "ю", ".", "↑", "Shift"],
-      ["Ctrl", "Win", "Alt", " ", "Alt", "Ctrl", "←", "↓", "→", "RU"]
+    this.RU_LOWERCASE = [
+      {"Backquote": "ё", "Digit1": "1", "Digit2": "2", "Digit3": "3", "Digit4": "4", "Digit5": "5", "Digit6": "6", "Digit7": "7", "Digit8": "8", "Digit9": "9", "Digit0": "0", "Minus": "-", "Equal": "=", "Backspace": "Backspace"},
+      {"Tab": "Tab", "KeyQ": "й", "KeyW": "ц", "KeyE": "у", "KeyR": "к", "KeyT": "е", "KeyY": "н", "KeyU": "г", "KeyI": "ш", "KeyO": "щ", "KeyP": "з", "BracketLeft": "х", "BracketRight": "ъ", "Backslash": "\\", "Delete": "Del"},
+      {"CapsLock": "Caps Lock", "KeyA": "ф", "KeyS": "ы", "KeyD": "в", "KeyF": "а", "KeyG": "п", "KeyH": "р", "KeyJ": "о", "KeyK": "л", "KeyL": "д", "Semicolon": "ж", "Quote": "э", "Enter": "Enter"},
+      {"ShiftLeft": "Shift", "KeyZ": "я", "KeyX": "ч", "KeyC": "с", "KeyV": "м", "KeyB": "и", "KeyN": "т", "KeyM": "ь", "Comma": "б", "Period": "ю", "Slash": ".", "ArrowUp": "↑", "ShiftRight": "Shift"},
+      {"ControlLeft": "Ctrl", "MetaLeft": "Win", "AltLeft": "Alt", "Space": " ", "AltRight": "Alt", "ControlRight": "Ctrl", "ArrowLeft": "←", "ArrowDown": "↓", "ArrowRight": "→", "Lang": "RU"}
     ];
-    this.RU_UPPERCASE = [ 
-      ["Ё", "!", "\"", "№", ";", "%", ":", "?", "*", "(", ")", "_", "+", "Backspace"],
-      ["Tab", "Й", "Ц", "У", "К", "Е", "Н", "Г", "Ш", "Щ", "З", "Х", "Ъ", "/", "Del"],
-      ["Caps Lock", "Ф", "Ы", "В", "А", "П", "Р", "О", "Л", "Д", "Ж", "Э", "Enter"],
-      ["Shift", "Я", "Ч", "С", "М", "И", "Т", "Ь", "Б", "Ю", ",", "↑", "Shift"],
-      ["Ctrl", "Win", "Alt", " ", "Alt", "Ctrl", "←", "↓", "→", "RU"]
+    this.RU_UPPERCASE = [
+      {"Backquote": "Ё", "Digit1": "!", "Digit2": "\"", "Digit3": "№", "Digit4": ";", "Digit5": "%", "Digit6": ":", "Digit7": "?", "Digit8": "*", "Digit9": "(", "Digit0": ")", "Minus": "_", "Equal": "+", "Backspace": "Backspace"},
+      {"Tab": "Tab", "KeyQ": "Й", "KeyW": "Ц", "KeyE": "У", "KeyR": "К", "KeyT": "Е", "KeyY": "Н", "KeyU": "Г", "KeyI": "Ш", "KeyO": "Щ", "KeyP": "З", "BracketLeft": "Х", "BracketRight": "Ъ", "Backslash": "\\", "Delete": "Del"},
+      {"CapsLock": "Caps Lock", "KeyA": "Ф", "KeyS": "Ы", "KeyD": "В", "KeyF": "А", "KeyG": "П", "KeyH": "Р", "KeyJ": "О", "KeyK": "Л", "KeyL": "Д", "Semicolon": "Ж", "Quote": "Э", "Enter": "Enter"},
+      {"ShiftLeft": "Shift", "KeyZ": "Я", "KeyX": "Ч", "KeyC": "С", "KeyV": "М", "KeyB": "И", "KeyN": "Т", "KeyM": "Ь", "Comma": "Б", "Period": "Ю", "Slash": ".", "ArrowUp": "↑", "ShiftRight": "Shift"},
+      {"ControlLeft": "Ctrl", "MetaLeft": "Win", "AltLeft": "Alt", "Space": " ", "AltRight": "Alt", "ControlRight": "Ctrl", "ArrowLeft": "←", "ArrowDown": "↓", "ArrowRight": "→", "Lang": "RU"}
     ];
   }
   switchLanguages() {
@@ -95,123 +133,87 @@ class Keyboard {
     const generatedRow = document.createElement("div");
     generatedRow.classList.add("row");
 
-    for (let i = 0; i < row.length; i++) {
+    for (const key in row) {
       const textArea = document.querySelector('.area-container');
-      const key = document.createElement("div");
-      key.classList.add("keys");
-      key.textContent = row[i];
+      const inKey = document.createElement("div");
+      inKey.classList.add("keys");
+      inKey.classList.add(key);
+      inKey.textContent = row[key];
+      document.addEventListener("keydown", (event) => { if (event.code === key) inKey.classList.add("highlight") });
+      document.addEventListener("keyup", (event) => { if (event.code === key) inKey.classList.remove("highlight") });
+      document.addEventListener("keydown", (event) => { if (event.keyCode === "91") inKey.classList.add("highlight") });
+      document.addEventListener("keyup", (event) => { if (event.code === key) inKey.classList.remove("highlight") });
 
-      switch (row[i]) {
+      switch (key) {
         case "Enter":
-          key.classList.add("enter");
-          key.onclick = () => { textArea.value = textArea.value.slice(0, textArea.selectionStart) + '\n' + textArea.value.slice(textArea.selectionEnd) };
+          inKey.classList.add("enter");
+          inKey.onclick = () => { textArea.value = textArea.value.slice(0, textArea.selectionStart) + '\n' + textArea.value.slice(textArea.selectionEnd) };
           break;
-        case "Shift":
-          key.classList.add("shift");
-          key.addEventListener('mousedown', () => {
+        case "ShiftLeft":
+        case "ShiftRight":
+          inKey.classList.add("shift");
+          inKey.addEventListener('mousedown', () => {
             this.isShiftPressed = true;
             this.generateKeyboard(this.isEnglish ? this.EN_UPPERCASE : this.RU_UPPERCASE);
           });
-          key.addEventListener('mouseup', () => {
+          inKey.addEventListener('mouseup', () => {
             this.isShiftPressed = false;
             this.generateKeyboard(this.isEnglish ? this.EN_LOWERCASE : this.RU_LOWERCASE);
           });
           break;
         case "Backspace":
-          key.classList.add("backspace");
-          key.addEventListener('click', () => {
-            const cursorPosition = textArea.selectionStart;
-            textArea.focus();
-            if (cursorPosition === textArea.value.length) {
-              textArea.value = textArea.value.substring(0, textArea.value.length - 1);
+          inKey.classList.add("backspace");
+          inKey.onclick = () => { 
+            const start = textArea.selectionStart;
+            const end = textArea.selectionEnd;
+            if (start === end && start > 0) {
+              textArea.value = textArea.value.slice(0, start - 1) + textArea.value.slice(end);
+              textArea.selectionStart = textArea.selectionEnd = start - 1;
             } else {
-              textArea.value = textArea.value.slice(0, cursorPosition - 1) + textArea.value.slice(cursorPosition);
-              textArea.selectionStart = cursorPosition - 1;
-              textArea.selectionEnd = cursorPosition - 1;
-            };
-          });
+              textArea.value = textArea.value.slice(0, start) + textArea.value.slice(end);
+              textArea.selectionStart = textArea.selectionEnd = start;
+            }
+          };
           break;
         case "Tab":
-          key.classList.add("tab");
-          key.onclick = () => { textArea.value += '\t' };
+          inKey.classList.add("tab");
+          inKey.onclick = () => { textArea.value += '\t'; };
           break;
-        case "Caps Lock":
-          key.classList.add("caps-lock");
+        case "CapsLock":
+          inKey.classList.add("caps-lock");
           break;
-        case " ":
-          key.classList.add("space");
+        case "Space":
+          inKey.classList.add("space");
           break;
-        case "Ctrl":
-          key.classList.add("ctrl");
+        case "ControlLeft":
+        case "ControlRight":
+          inKey.classList.add("ctrl");
           break;
-        case "EN":
-        case "RU":
-          key.classList.add("lang-key");
+        case "Lang":
+          inKey.classList.add("lang-key");
           break;
         default:
-          key.classList.add("symbol");
-          key.onclick = () => { textArea.value += key.textContent; };
+          inKey.onclick = () => {
+            const start = textArea.selectionStart;
+            const end = textArea.selectionEnd;
+            textArea.value = textArea.value.slice(0, start) + inKey.textContent + textArea.value.slice(end);
+            textArea.selectionStart = start + 1;
+            textArea.selectionEnd = start + 1;
+          };          
       }
-      generatedRow.appendChild(key);
+
+      generatedRow.appendChild(inKey);
     }
     return generatedRow;
-  }
-  highlightKey() {
-    document.addEventListener("keydown", (event) => {
-      const shiftKeys = document.querySelectorAll(".shift");
-      if (event.key === "Shift") {
-        shiftKeys.forEach((key) => {
-          key.classList.add("highlight");
-        });
-      }
-    });
-    document.addEventListener("keydown", (event) => {
-      const enterKey = document.querySelector(".enter");
-      if (event.key === "Enter") {
-        enterKey.classList.add("highlight");
-      }
-    });
-    document.addEventListener("keyup", (event) => {
-      const enterKey = document.querySelector(".enter");
-      if (event.key === "Enter") {
-        enterKey.classList.remove("highlight");
-      }
-    });
-    document.addEventListener("keydown", (event) => {
-      const enterKey = document.querySelector(".backspace");
-      if (event.code === "Backspace") {
-        enterKey.classList.add("highlight");
-      }
-    });
-    document.addEventListener("keyup", (event) => {
-      const enterKey = document.querySelector(".backspace");
-      if (event.code === "Backspace") {
-        enterKey.classList.remove("highlight");
-      }
-    });
-    document.addEventListener("keydown", (event) => {
-      const enterKey = document.querySelector(".caps-lock");
-      if (event.key === "CapsLock") {
-        enterKey.classList.add("highlight");
-      }
-    });
-    document.addEventListener("keyup", (event) => {
-      const enterKey = document.querySelector(".caps-lock");
-      if (event.key === "CapsLock") {
-        enterKey.classList.remove("highlight");
-      }
-    });
-
-    
   }
   generateFunctionalKeyboard() {
     this.switchLanguages();
     this.generateKeyboard(this.isEnglish ? this.EN_LOWERCASE : this.RU_LOWERCASE);
     this.switchCase();
-    this.highlightKey();
   }
 }
 
 // Instantiate and invoke classes
+new Background().generateBackground();
 new Textarea().generateTextarea();
 new Keyboard().generateFunctionalKeyboard();
