@@ -40,6 +40,7 @@ switchLanguages(); // 1. Switch languages
 generateTextarea(); // 2. Generate text area
 generateKeyboard(isEnglish ? EN_LOWERCASE : RU_LOWERCASE); // 3. Generate the whole keyboard
 switchCase(); // 4. Switch lowercase and upper case
+highlightKey(); // 5. Highlight keys
 
 // END MAIN PART
 
@@ -113,7 +114,27 @@ function switchCase() {
   });
 }
 
-// Generate ONE row in the keyboard || !!! MAIN FUNCTIONALITY !!!
+// 5. Highlight keys
+function highlightKey() {
+  document.addEventListener("keydown", (event) => {
+    const shiftKeys = document.querySelectorAll(".shift");
+    if (event.key === "Shift") {
+      shiftKeys.forEach((key) => {
+        key.classList.add("highlight");
+      });
+    }
+  });
+  document.addEventListener("keydown", (event) => {
+    const shiftKeys = document.querySelectorAll(".symbol");
+    if (event.key === "g") {
+      shiftKeys.forEach((key) => {
+        key.classList.add("highlight");
+      });
+    }
+  });
+}
+
+// Generate ONE row in the keyboard
 function generateRow(row) {
   const generatedRow = document.createElement("div");
   generatedRow.classList.add("row");
@@ -124,7 +145,7 @@ function generateRow(row) {
     key.classList.add("keys");
     key.textContent = row[i];
 
-    // Add a custom class to certain keys to make them wider
+    // Add a custom class to certain keys
     switch (row[i]) {
       case "Enter":
         key.classList.add("enter");
@@ -143,7 +164,6 @@ function generateRow(row) {
         break;
       case "Backspace":
         key.classList.add("backspace");
-
         key.addEventListener('click', () => {
           const cursorPosition = textArea.selectionStart;
           textArea.focus();
@@ -155,7 +175,6 @@ function generateRow(row) {
             textArea.selectionEnd = cursorPosition - 1;
           };
         });
-
         break;
       case "Tab":
         key.classList.add("tab");

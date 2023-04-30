@@ -58,6 +58,10 @@
   cursor: pointer;
 }
 
+.highlight {
+  background-color: #ddd !important;
+}
+
 /* Special keys */
 .keys.shift {
   width: 126px;
