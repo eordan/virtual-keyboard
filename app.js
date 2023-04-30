@@ -101,18 +101,10 @@ class Keyboard {
       key.classList.add("keys");
       key.textContent = row[i];
 
-      // Add a custom class to certain keys
       switch (row[i]) {
         case "Enter":
           key.classList.add("enter");
-          key.onclick = () => { textArea.value += '\n' };
-
-
-
-
-
-
-
+          key.onclick = () => { textArea.value = textArea.value.slice(0, textArea.selectionStart) + '\n' + textArea.value.slice(textArea.selectionEnd) };
           break;
         case "Shift":
           key.classList.add("shift");
