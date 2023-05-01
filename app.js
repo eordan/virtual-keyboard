@@ -62,28 +62,28 @@ class Keyboard {
       {"Tab": "Tab", "KeyQ": "q", "KeyW": "w", "KeyE": "e", "KeyR": "r", "KeyT": "t", "KeyY": "y", "KeyU": "u", "KeyI": "i", "KeyO": "o", "KeyP": "p", "BracketLeft": "[", "BracketRight": "]", "Backslash": "\\", "Delete": "Del"},
       {"CapsLock": "Caps Lock", "KeyA": "a", "KeyS": "s", "KeyD": "d", "KeyF": "f", "KeyG": "g", "KeyH": "h", "KeyJ": "j", "KeyK": "k", "KeyL": "l", "Semicolon": ";", "Quote": "'", "Enter": "Enter"},
       {"ShiftLeft": "Shift", "KeyZ": "z", "KeyX": "x", "KeyC": "c", "KeyV": "v", "KeyB": "b", "KeyN": "n", "KeyM": "m", "Comma": ",", "Period": ".", "Slash": "/", "ArrowUp": "↑", "ShiftRight": "Shift"},
-      {"ControlLeft": "Ctrl", "MetaLeft": "Win", "AltLeft": "Alt", "Space": " ", "AltRight": "Alt", "ControlRight": "Ctrl", "ArrowLeft": "←", "ArrowDown": "↓", "ArrowRight": "→", "Lang": "EN"}
+      {"ControlLeft": "Ctrl", "AltLeft": "Alt", "Space": " ", "AltRight": "Alt", "ControlRight": "Ctrl", "ArrowLeft": "←", "ArrowDown": "↓", "ArrowRight": "→", "Lang": "EN"}
     ];
     this.EN_UPPERCASE = [
       {"Backquote": "~", "Digit1": "!", "Digit2": "@", "Digit3": "#", "Digit4": "$", "Digit5": "%", "Digit6": "^", "Digit7": "&", "Digit8": "*", "Digit9": "(", "Digit0": ")", "Minus": "_", "Equal": "+", "Backspace": "Backspace"},
       {"Tab": "Tab", "KeyQ": "Q", "KeyW": "W", "KeyE": "E", "KeyR": "R", "KeyT": "T", "KeyY": "Y", "KeyU": "U", "KeyI": "I", "KeyO": "O", "KeyP": "P", "BracketLeft": "{", "BracketRight": "}", "Backslash": "|", "Delete": "Del"},
       {"CapsLock": "Caps Lock", "KeyA": "A", "KeyS": "S", "KeyD": "D", "KeyF": "F", "KeyG": "G", "KeyH": "H", "KeyJ": "J", "KeyK": "K", "KeyL": "L", "Semicolon": ":", "Quote": "\"", "Enter": "Enter"},
       {"ShiftLeft": "Shift", "KeyZ": "Z", "KeyX": "X", "KeyC": "C", "KeyV": "V", "KeyB": "B", "KeyN": "N", "KeyM": "M", "Comma": "<", "Period": ">", "Slash": "?", "ArrowUp": "↑", "ShiftRight": "Shift"},
-      {"ControlLeft": "Ctrl", "MetaLeft": "Win", "AltLeft": "Alt", "Space": " ", "AltRight": "Alt", "ControlRight": "Ctrl", "ArrowLeft": "←", "ArrowDown": "↓", "ArrowRight": "→", "Lang": "EN"}
+      {"ControlLeft": "Ctrl", "AltLeft": "Alt", "Space": " ", "AltRight": "Alt", "ControlRight": "Ctrl", "ArrowLeft": "←", "ArrowDown": "↓", "ArrowRight": "→", "Lang": "EN"}
     ];
     this.RU_LOWERCASE = [
       {"Backquote": "ё", "Digit1": "1", "Digit2": "2", "Digit3": "3", "Digit4": "4", "Digit5": "5", "Digit6": "6", "Digit7": "7", "Digit8": "8", "Digit9": "9", "Digit0": "0", "Minus": "-", "Equal": "=", "Backspace": "Backspace"},
       {"Tab": "Tab", "KeyQ": "й", "KeyW": "ц", "KeyE": "у", "KeyR": "к", "KeyT": "е", "KeyY": "н", "KeyU": "г", "KeyI": "ш", "KeyO": "щ", "KeyP": "з", "BracketLeft": "х", "BracketRight": "ъ", "Backslash": "\\", "Delete": "Del"},
       {"CapsLock": "Caps Lock", "KeyA": "ф", "KeyS": "ы", "KeyD": "в", "KeyF": "а", "KeyG": "п", "KeyH": "р", "KeyJ": "о", "KeyK": "л", "KeyL": "д", "Semicolon": "ж", "Quote": "э", "Enter": "Enter"},
       {"ShiftLeft": "Shift", "KeyZ": "я", "KeyX": "ч", "KeyC": "с", "KeyV": "м", "KeyB": "и", "KeyN": "т", "KeyM": "ь", "Comma": "б", "Period": "ю", "Slash": ".", "ArrowUp": "↑", "ShiftRight": "Shift"},
-      {"ControlLeft": "Ctrl", "MetaLeft": "Win", "AltLeft": "Alt", "Space": " ", "AltRight": "Alt", "ControlRight": "Ctrl", "ArrowLeft": "←", "ArrowDown": "↓", "ArrowRight": "→", "Lang": "RU"}
+      {"ControlLeft": "Ctrl", "AltLeft": "Alt", "Space": " ", "AltRight": "Alt", "ControlRight": "Ctrl", "ArrowLeft": "←", "ArrowDown": "↓", "ArrowRight": "→", "Lang": "RU"}
     ];
     this.RU_UPPERCASE = [
       {"Backquote": "Ё", "Digit1": "!", "Digit2": "\"", "Digit3": "№", "Digit4": ";", "Digit5": "%", "Digit6": ":", "Digit7": "?", "Digit8": "*", "Digit9": "(", "Digit0": ")", "Minus": "_", "Equal": "+", "Backspace": "Backspace"},
       {"Tab": "Tab", "KeyQ": "Й", "KeyW": "Ц", "KeyE": "У", "KeyR": "К", "KeyT": "Е", "KeyY": "Н", "KeyU": "Г", "KeyI": "Ш", "KeyO": "Щ", "KeyP": "З", "BracketLeft": "Х", "BracketRight": "Ъ", "Backslash": "\\", "Delete": "Del"},
       {"CapsLock": "Caps Lock", "KeyA": "Ф", "KeyS": "Ы", "KeyD": "В", "KeyF": "А", "KeyG": "П", "KeyH": "Р", "KeyJ": "О", "KeyK": "Л", "KeyL": "Д", "Semicolon": "Ж", "Quote": "Э", "Enter": "Enter"},
       {"ShiftLeft": "Shift", "KeyZ": "Я", "KeyX": "Ч", "KeyC": "С", "KeyV": "М", "KeyB": "И", "KeyN": "Т", "KeyM": "Ь", "Comma": "Б", "Period": "Ю", "Slash": ".", "ArrowUp": "↑", "ShiftRight": "Shift"},
-      {"ControlLeft": "Ctrl", "MetaLeft": "Win", "AltLeft": "Alt", "Space": " ", "AltRight": "Alt", "ControlRight": "Ctrl", "ArrowLeft": "←", "ArrowDown": "↓", "ArrowRight": "→", "Lang": "RU"}
+      {"ControlLeft": "Ctrl", "AltLeft": "Alt", "Space": " ", "AltRight": "Alt", "ControlRight": "Ctrl", "ArrowLeft": "←", "ArrowDown": "↓", "ArrowRight": "→", "Lang": "RU"}
     ];
   }
   generateInformation() {
@@ -173,6 +173,106 @@ class Keyboard {
             textArea.focus();
           };
           break;
+        case "Backspace":
+          inKey.onclick = () => {
+            const start = textArea.selectionStart;
+            const end = textArea.selectionEnd;
+            if (start === end && start > 0) {
+              textArea.value = textArea.value.slice(0, start - 1) + textArea.value.slice(end);
+              textArea.selectionStart = textArea.selectionEnd = start - 1;
+            } else {
+              textArea.value = textArea.value.slice(0, start) + textArea.value.slice(end);
+              textArea.selectionStart = textArea.selectionEnd = start;
+            }
+            textArea.focus();
+          };
+          break;
+        case "Delete":
+          inKey.onclick = () => {
+            const start = textArea.selectionStart;
+            const end = textArea.selectionEnd;
+            if (start === end && end < textArea.value.length) {
+              textArea.value = textArea.value.slice(0, start) + textArea.value.slice(end + 1);
+            } else {
+              textArea.value = textArea.value.slice(0, start) + textArea.value.slice(end);
+            }
+            textArea.selectionStart = textArea.selectionEnd = start;
+            textArea.focus();
+          };
+        break;
+        case "ArrowLeft":
+          inKey.onclick = () => {
+            const start = textArea.selectionStart;
+            if (start > 0) {
+              textArea.selectionStart = start - 1;
+              textArea.selectionEnd = start - 1;
+            }
+            textArea.focus();
+          };
+          break;
+        case "ArrowRight":
+          inKey.onclick = () => {
+            const end = textArea.selectionEnd;
+            if (end < textArea.value.length) {
+              textArea.selectionStart = end + 1;
+              textArea.selectionEnd = end + 1;
+            }
+            textArea.focus();
+          };
+          break;
+        case "ArrowUp":
+          inKey.onclick = () => {
+            const start = textArea.selectionStart;
+            if (start > 0) {
+              const lines = textArea.value.split("\n");
+              const currentLine = textArea.value.substr(0, start).split("\n").length;
+              const currentLineText = lines[currentLine - 1];
+              const prevLineText = lines[currentLine - 2];
+              const offset = start - textArea.value.lastIndexOf(currentLineText, start);
+              console.log(currentLine);
+              console.log(offset);
+              // Move cursor to previous line at the same offset
+              if (currentLine !== 1) {
+                const prevLineOffset = Math.min(offset, prevLineText.length);
+                const prevLineStart = textArea.value.lastIndexOf(prevLineText) + prevLineOffset;
+                textArea.setSelectionRange(prevLineStart, prevLineStart);
+              }
+            }
+            textArea.focus();
+          };
+          break;
+          case "ArrowDown":
+            inKey.onclick = () => {
+              const end = textArea.selectionEnd;
+              if (end < textArea.value.length) {           
+                const lines = textArea.value.split("\n");
+                const currentLine = textArea.value.substr(0, end).split("\n").length;
+                const currentLineText = lines[currentLine - 1];
+                const nextLineText = lines[currentLine];
+                const offset = end - textArea.value.lastIndexOf(currentLineText, end);
+                console.log(currentLine);
+                console.log(offset);
+                // Move cursor to next line at the same offset
+                if (currentLine !== lines.length) {
+                  console.log(nextLineText);
+                  const nextLineOffset = Math.min(offset, nextLineText.length);
+                  const nextLineStart = textArea.value.indexOf(nextLineText) + nextLineOffset;
+                  console.log(nextLineStart);
+                  textArea.setSelectionRange(nextLineStart, nextLineStart);
+                }
+              }
+              textArea.focus();
+            };
+            break;
+        case "Tab":
+          inKey.onclick = () => {
+            const start = textArea.selectionStart;
+            const end = textArea.selectionEnd;
+            textArea.value = textArea.value.slice(0, start) + "\t" + textArea.value.slice(end);
+            textArea.selectionStart = textArea.selectionEnd = start + 1;
+            textArea.focus();
+          };
+          break;
         case "ShiftLeft":
         case "ShiftRight":
           inKey.addEventListener('mousedown', () => {
@@ -184,35 +284,18 @@ class Keyboard {
             this.generateKeyboard(this.isEnglish ? this.EN_LOWERCASE : this.RU_LOWERCASE);
           });
           break;
-        case "Backspace":
-          inKey.classList.add("backspace");
-          inKey.onclick = () => { 
-            const start = textArea.selectionStart;
-            const end = textArea.selectionEnd;
-            if (start === end && start > 0) {
-              textArea.value = textArea.value.slice(0, start - 1) + textArea.value.slice(end);
-              textArea.selectionStart = textArea.selectionEnd = start - 1;
-            } else {
-              textArea.value = textArea.value.slice(0, start) + textArea.value.slice(end);
-              textArea.selectionStart = textArea.selectionEnd = start;
-            }
-          };
-          break;
-        case "Tab":
-          inKey.classList.add("tab");
-          inKey.onclick = () => { textArea.value += '\t'; };
-          break;
         case "CapsLock":
           break;
         case "Space":
-          inKey.classList.add("space");
-          break;
-        case "ControlLeft":
-        case "ControlRight":
-          inKey.classList.add("ctrl");
+          inKey.onclick = () => {
+            const start = textArea.selectionStart;
+            const end = textArea.selectionEnd;
+            textArea.value = textArea.value.slice(0, start) + " " + textArea.value.slice(end);
+            textArea.selectionStart = textArea.selectionEnd = start + 1;
+            textArea.focus();
+          };
           break;
         case "Lang":
-          inKey.classList.add("lang-key");
           break;
         default:
           inKey.onclick = () => {

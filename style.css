@@ -79,6 +79,18 @@ canvas {
 }
 
 /* Keyboard Styles */
+@keyframes key-press {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .keyboard-container {
   display: flex;
   flex-wrap: wrap;
@@ -87,7 +99,7 @@ canvas {
   width: 950px;
   border: none;
   border-radius: 10px;
-  box-shadow: rgba(0, 255, 0, 0.1) 0px 1px 1px 0px inset, rgba(0, 255, 0, 0.25) 0px 50px 100px -20px, rgba(0, 255, 0, 0.3) 0px 30px 60px -30px;
+  box-shadow: rgba(0, 255, 0, 0.1) 0px 1px 1px 0px inset, rgba(0, 255, 0, 0.25) 0px 10px 30px -20px, rgba(0, 255, 0, 0.3) 0px 30px 60px -30px;
   padding: 10px;
   font-size: 1.5em;
   background-color: rgba(0, 0, 0, 0.8);
@@ -110,44 +122,27 @@ canvas {
   margin: 5px;
   border: none;
   border-radius: 5px;
-  box-shadow: 0px 0px 3px rgba(0, 255, 255, 0.7);
+  box-shadow: 0px 0px 3px rgba(20, 71, 14, 0.7);
   background-color: rgba(0, 255, 0, 0.1);
-  font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+  font-family: 'Courier New', Courier, monospace;
   font-size: small;
   user-select: none;
-  text-shadow: 0px 0px 10px rgb(191, 209, 187);
+  text-shadow: 0px 0px 10px rgb(41, 85, 41);
 }
 
 .keys:hover {
-  background-color: rgba(115, 255, 0, 0.2);
+  background-color: rgba(150, 255, 150, 0.2);
   cursor: pointer;
 }
 
-@keyframes key-press {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(0.9);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-.highlight {
-  background-color: rgba(115, 255, 0, 0.4);
+.keys:active {
+  background-color: rgba(150, 255, 150, 0.3);
   animation: key-press 0.2s;
 }
 
-.lang-key {
-  background-color: rgba(115, 255, 0, 0.4);
-  font-weight: bold;
-}
-
-.lang-key:hover {
-  background-color: rgba(115, 255, 0, 0.4);
-  cursor: default;
+.highlight {
+  background-color: rgba(150, 255, 150, 0.3);
+  animation: key-press 0.2s;
 }
 
 /* Special keys */
@@ -181,10 +176,21 @@ canvas {
 
 .Lang {
   width: 61px;
+  background-color: rgba(150, 255, 150, 0.3);
+  font-weight: bold;
+}
+
+.Lang.keys:active {
+  animation: none;
+}
+
+.Lang:hover {
+  background-color: rgba(150, 255, 150, 0.3);
+  cursor: default;
 }
 
 .ControlLeft {
-  width: 71px;
+  width: 131px;
 }
 
 .ControlRight {
