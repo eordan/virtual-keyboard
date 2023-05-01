@@ -265,6 +265,16 @@ class Keyboard {
             };
             break;
         case "Tab":
+          document.addEventListener("keydown", (event) => {
+            if (event.code === key) {
+            event.preventDefault();
+            const start = textArea.selectionStart;
+            const end = textArea.selectionEnd;
+            textArea.value = textArea.value.slice(0, start) + "\t" + textArea.value.slice(end);
+            textArea.selectionStart = textArea.selectionEnd = start + 1;
+            textArea.focus();
+            }
+          });
           inKey.onclick = () => {
             const start = textArea.selectionStart;
             const end = textArea.selectionEnd;
@@ -310,11 +320,15 @@ class Keyboard {
     }
     return generatedRow;
   }
+  costyl() {
+
+  }
   generateFunctionalKeyboard() {
     this.switchLanguages();
     this.generateInformation();
     this.generateKeyboard(this.isEnglish ? this.EN_LOWERCASE : this.RU_LOWERCASE);
     this.switchCase();
+    this.costyl();
   }
 }
 
