@@ -323,6 +323,12 @@ class Keyboard {
         ShiftLeft.classList.add("highlight");
       }
     });
+    document.addEventListener("keydown", (event) => {
+      const CapsLock = document.querySelector(".CapsLock");
+      if (event.code === "CapsLock") {
+        CapsLock.classList.add("highlight");
+      }
+    });
   }
   generateFunctionalKeyboard() {
     this.switchLanguages();
