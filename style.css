@@ -18,20 +18,64 @@ canvas {
 /* Textarea styles */
 .area-container {
   display: flex;
-  margin: 130px auto 0 auto;
-  width: 1000px;
-  height: 150px;
-  border: none;
+  margin: 100px auto 0 auto;
+  width: 950px;
+  height: 100px;
   border-radius: 10px;
-  box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.7);
+  box-shadow: rgba(0, 255, 0, 0.1) 0px 1px 1px 0px inset, rgba(0, 255, 0, 0.25) 0px 10px 30px -20px, rgba(0, 255, 0, 0.3) 0px 30px 60px -30px;
   padding: 10px;
-  font-size: 1.5em;
-  background-color: black;
-  resize: none;
-  color: #0ff;
-  font-weight: bold;
+  font-size: 0.9em;
+  background-color: rgba(0, 0, 0, 0.8);
+  line-height: 1.8;
+  color: green;
   font-family: 'Courier New', Courier, monospace;
-  caret-color: #0ff;
+  caret-color: green;
+  resize: none;
+  outline: none !important;
+  border:1px solid rgba(0, 255, 0, 0);
+}
+
+.area-container:focus {
+  background-color: rgba(0, 0, 0, 0.9);
+  outline: none !important;
+  border:1px solid rgba(0, 255, 0, 0.1);
+}
+
+.area-container::-webkit-scrollbar {
+  width: 8px;
+  background-color: rgba(199, 206, 199, 0.5); /* background color of the scrollbar */
+  border-radius: 4px;
+  cursor: auto;
+}
+
+.area-container::-webkit-scrollbar-thumb {
+  background-color: rgb(6, 71, 6); /* color of the scrollbar thumb */
+  border-radius: 4px;
+}
+
+.area-container::-webkit-scrollbar-track {
+  background-color: rgba(5, 73, 5, 0.541); /* color of the scrollbar track */
+}
+
+.area-container::-webkit-scrollbar-thumb:active {
+  background-color: #999;
+}
+
+/* Information Box Styles*/
+.information {
+  display: flex;
+  margin: 30px auto 0 auto;
+  width: 950px;
+  height: 50px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 255, 0, 0.1) 0px 1px 1px 0px inset, rgba(0, 255, 0, 0.25) 0px 50px 100px -20px, rgba(0, 255, 0, 0.3) 0px 30px 60px -30px;
+  padding: 10px;
+  font-size: 0.9em;
+  background-color: rgba(0, 0, 0, 0.8);
+  line-height: 1.8;
+  color: green;
+  font-family: 'Courier New', Courier, monospace;
+  cursor: default;
 }
 
 /* Keyboard Styles */
@@ -39,17 +83,15 @@ canvas {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 50px auto;
-  width: 90%;
-  max-width: 1000px;
+  margin: 30px auto;
+  width: 950px;
   border: none;
   border-radius: 10px;
-  box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.7);
+  box-shadow: rgba(0, 255, 0, 0.1) 0px 1px 1px 0px inset, rgba(0, 255, 0, 0.25) 0px 50px 100px -20px, rgba(0, 255, 0, 0.3) 0px 30px 60px -30px;
   padding: 10px;
   font-size: 1.5em;
-  background-color: black;
-  color: #0ff;
-  font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: rgb(160, 206, 156);
 }
 
 .row {
@@ -73,11 +115,11 @@ canvas {
   font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
   font-size: small;
   user-select: none;
-  text-shadow: 0px 0px 10px #0ff;
+  text-shadow: 0px 0px 10px rgb(191, 209, 187);
 }
 
 .keys:hover {
-  background-color: rgba(0, 255, 0, 0.2);
+  background-color: rgba(115, 255, 0, 0.2);
   cursor: pointer;
 }
 
@@ -94,17 +136,17 @@ canvas {
 }
 
 .highlight {
-  background-color: rgba(0, 255, 0, 0.5);
+  background-color: rgba(115, 255, 0, 0.4);
   animation: key-press 0.2s;
 }
 
 .lang-key {
-  background-color: rgba(0, 255, 0, 0.5);
+  background-color: rgba(115, 255, 0, 0.4);
   font-weight: bold;
 }
 
 .lang-key:hover {
-  background-color: rgba(0, 255, 0, 0.5);
+  background-color: rgba(115, 255, 0, 0.4);
   cursor: default;
 }
 
@@ -113,34 +155,38 @@ canvas {
   width: 126px;
 }
 
-.keys.shift {
-  width: 126px;
+.ShiftRight {
+  width: 122px;
 }
 
 .Enter {
   width: 136px;
 }
 
-.keys.backspace {
+.Backspace {
   width: 140px;
 }
 
-.keys.tab {
+.Tab {
   width: 78px;
 }
 
-.keys.caps-lock {
-  width: 116px;
+.CapsLock {
+  width: 112px;
 }
 
-.keys.space {
-  width: 325px;
+.Space {
+  width: 320px;
 }
 
-.keys.lang-key {
-  width: 65px;
+.Lang {
+  width: 61px;
 }
 
-.keys.ctrl {
+.ControlLeft {
+  width: 71px;
+}
+
+.ControlRight {
   width: 75px;
 }

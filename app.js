@@ -8,7 +8,6 @@ class Background {
     this.ctx = this.canvas.getContext("2d");
     this.canvas.height = window.innerHeight; // Making the canvas full screen
     this.canvas.width = window.innerWidth; // Making the canvas full screen
-
     // Converting the string into an array of single characters
     this.matrix = this.matrix.split("");
     this.drops = []; // An array of drops - one per column
@@ -47,6 +46,7 @@ class Textarea {
 
 class Keyboard {
   constructor(isEnglish) {
+    // this.information = new Information();
     if (localStorage.getItem('isEnglish') !== null) {
       isEnglish = JSON.parse(localStorage.getItem('isEnglish'));
     } else {
@@ -56,6 +56,7 @@ class Keyboard {
     this.isShiftPressed = false;
     this.isCapsLockOn = false;
     this.keyboardContainer = null;
+    this.information = null;
     this.EN_LOWERCASE = [
       {"Backquote": "`", "Digit1": "1", "Digit2": "2", "Digit3": "3", "Digit4": "4", "Digit5": "5", "Digit6": "6", "Digit7": "7", "Digit8": "8", "Digit9": "9", "Digit0": "0", "Minus": "-", "Equal": "=", "Backspace": "Backspace"},
       {"Tab": "Tab", "KeyQ": "q", "KeyW": "w", "KeyE": "e", "KeyR": "r", "KeyT": "t", "KeyY": "y", "KeyU": "u", "KeyI": "i", "KeyO": "o", "KeyP": "p", "BracketLeft": "[", "BracketRight": "]", "Backslash": "\\", "Delete": "Del"},
@@ -85,11 +86,30 @@ class Keyboard {
       {"ControlLeft": "Ctrl", "MetaLeft": "Win", "AltLeft": "Alt", "Space": " ", "AltRight": "Alt", "ControlRight": "Ctrl", "ArrowLeft": "←", "ArrowDown": "↓", "ArrowRight": "→", "Lang": "RU"}
     ];
   }
+  generateInformation() {
+    if (!this.information) {
+      this.information = document.createElement("div");
+      this.information.classList.add('information');
+      document.body.appendChild(this.information);
+    }
+    while (this.information.firstChild) {
+      this.information.removeChild(this.information.firstChild);
+    }
+
+    const content = document.createElement("p");
+    if (this.isEnglish) {
+      content.innerText = "- The keyboard was created on Ubuntu 22.04.2 LTS;\n- You can switch the language layout by pressing `Shift` + `Alt`.";
+    } else {
+      content.innerText = "- Клавиатура создана в Ubuntu 22.04.2 LTS;\n- Раскладку можно изменить нажатием `Shift` + `Alt`.";
+    }
+    this.information.appendChild(content);
+  }
   switchLanguages() {
     document.addEventListener("keydown", (event) => {
       if (event.shiftKey && event.altKey) {
         this.isEnglish = !this.isEnglish;
         localStorage.setItem('isEnglish', this.isEnglish);
+        this.generateInformation();
         this.generateKeyboard(this.isEnglish ? this.EN_LOWERCASE : this.RU_LOWERCASE);
       }
     });
@@ -155,7 +175,6 @@ class Keyboard {
           break;
         case "ShiftLeft":
         case "ShiftRight":
-          inKey.classList.add("shift");
           inKey.addEventListener('mousedown', () => {
             this.isShiftPressed = true;
             this.generateKeyboard(this.isEnglish ? this.EN_UPPERCASE : this.RU_UPPERCASE);
@@ -184,7 +203,6 @@ class Keyboard {
           inKey.onclick = () => { textArea.value += '\t'; };
           break;
         case "CapsLock":
-          inKey.classList.add("caps-lock");
           break;
         case "Space":
           inKey.classList.add("space");
@@ -211,6 +229,7 @@ class Keyboard {
   }
   generateFunctionalKeyboard() {
     this.switchLanguages();
+    this.generateInformation();
     this.generateKeyboard(this.isEnglish ? this.EN_LOWERCASE : this.RU_LOWERCASE);
     this.switchCase();
   }
