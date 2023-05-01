@@ -161,7 +161,6 @@ class Keyboard {
       inKey.textContent = row[key];
       document.addEventListener("keydown", (event) => { if (event.code === key) inKey.classList.add("highlight") });
       document.addEventListener("keyup", (event) => { if (event.code === key) inKey.classList.remove("highlight") });
-      inKey.addEventListener('mousedown', (event) => { event.preventDefault(); });
 
       switch (key) {
         case "Enter":
@@ -229,8 +228,6 @@ class Keyboard {
               const currentLineText = lines[currentLine - 1];
               const prevLineText = lines[currentLine - 2];
               const offset = start - textArea.value.lastIndexOf(currentLineText, start);
-              console.log(currentLine);
-              console.log(offset);
               // Move cursor to previous line at the same offset
               if (currentLine !== 1) {
                 const prevLineOffset = Math.min(offset, prevLineText.length);
@@ -250,14 +247,10 @@ class Keyboard {
                 const currentLineText = lines[currentLine - 1];
                 const nextLineText = lines[currentLine];
                 const offset = end - textArea.value.lastIndexOf(currentLineText, end);
-                console.log(currentLine);
-                console.log(offset);
                 // Move cursor to next line at the same offset
                 if (currentLine !== lines.length) {
-                  console.log(nextLineText);
                   const nextLineOffset = Math.min(offset, nextLineText.length);
                   const nextLineStart = textArea.value.indexOf(nextLineText) + nextLineOffset;
-                  console.log(nextLineStart);
                   textArea.setSelectionRange(nextLineStart, nextLineStart);
                 }
               }
@@ -267,12 +260,12 @@ class Keyboard {
         case "Tab":
           document.addEventListener("keydown", (event) => {
             if (event.code === key) {
-            event.preventDefault();
-            const start = textArea.selectionStart;
-            const end = textArea.selectionEnd;
-            textArea.value = textArea.value.slice(0, start) + "\t" + textArea.value.slice(end);
-            textArea.selectionStart = textArea.selectionEnd = start + 1;
-            textArea.focus();
+              event.preventDefault();
+              const start = textArea.selectionStart;
+              const end = textArea.selectionEnd;
+              textArea.value = textArea.value.slice(0, start) + "\t" + textArea.value.slice(end);
+              textArea.selectionStart = textArea.selectionEnd = start + 1;
+              textArea.focus();
             }
           });
           inKey.onclick = () => {
@@ -321,7 +314,15 @@ class Keyboard {
     return generatedRow;
   }
   costyl() {
-
+    document.addEventListener("keydown", (event) => {
+      const ShiftRight = document.querySelector(".ShiftRight");
+      const ShiftLeft = document.querySelector(".ShiftLeft");
+      if (event.code === "ShiftRight") {
+        ShiftRight.classList.add("highlight");
+      } else if (event.code === "ShiftLeft") {
+        ShiftLeft.classList.add("highlight");
+      }
+    });
   }
   generateFunctionalKeyboard() {
     this.switchLanguages();

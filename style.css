@@ -177,7 +177,6 @@ canvas {
 .Lang {
   width: 61px;
   background-color: rgba(150, 255, 150, 0.3);
-  font-weight: bold;
 }
 
 .Lang.keys:active {
