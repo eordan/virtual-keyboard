@@ -18,7 +18,7 @@ canvas {
 /* Textarea styles */
 .area-container {
   display: flex;
-  margin: 100px auto 0 auto;
+  margin: 14vh auto 0 auto;
   width: 950px;
   height: 100px;
   border-radius: 10px;

@@ -46,6 +46,7 @@ class Textarea {
 
 class Keyboard {
   constructor(isEnglish) {
+    this.highlightedItems = [];
     // this.information = new Information();
     if (localStorage.getItem('isEnglish') !== null) {
       isEnglish = JSON.parse(localStorage.getItem('isEnglish'));
@@ -95,7 +96,6 @@ class Keyboard {
     while (this.information.firstChild) {
       this.information.removeChild(this.information.firstChild);
     }
-
     const content = document.createElement("p");
     if (this.isEnglish) {
       content.innerText = "- The keyboard was created on Ubuntu 22.04.2 LTS;\n- You can switch the language layout by pressing `Shift` + `Alt`.";
@@ -117,9 +117,11 @@ class Keyboard {
   switchCase() {
     document.addEventListener("keydown", (event) => {
       if (event.key === "Shift") {
+        this.highlightedItems = this.highlightMemory();
         this.isShiftPressed = true;
         this.generateKeyboard(this.isEnglish ? this.EN_UPPERCASE : this.RU_UPPERCASE);
       } else if (event.key === "CapsLock") {
+        this.highlightedItems = this.highlightMemory();
         this.isCapsLockOn = !this.isCapsLockOn;
           if (this.isEnglish) {
             this.generateKeyboard(this.isCapsLockOn ? this.EN_UPPERCASE : this.EN_LOWERCASE);
@@ -160,6 +162,11 @@ class Keyboard {
       inKey.classList.add(key);
       inKey.textContent = row[key];
       document.addEventListener("keydown", (event) => { if (event.code === key) inKey.classList.add("highlight") });
+      this.highlightedItems.forEach(node => {
+        if (node.classList.contains(key)) {
+          inKey.classList.add("highlight");
+        }
+      });
       document.addEventListener("keyup", (event) => { if (event.code === key) inKey.classList.remove("highlight") });
 
       switch (key) {
@@ -279,15 +286,25 @@ class Keyboard {
         case "ShiftLeft":
         case "ShiftRight":
           inKey.addEventListener('mousedown', () => {
+            inKey.classList.add("highlight");
             this.isShiftPressed = true;
             this.generateKeyboard(this.isEnglish ? this.EN_UPPERCASE : this.RU_UPPERCASE);
           });
           inKey.addEventListener('mouseup', () => {
+            inKey.classList.remove("highlight");
             this.isShiftPressed = false;
             this.generateKeyboard(this.isEnglish ? this.EN_LOWERCASE : this.RU_LOWERCASE);
           });
           break;
         case "CapsLock":
+          inKey.addEventListener('mousedown', () => {
+            this.isCapsLockOn = !this.isCapsLockOn;
+            if (this.isEnglish) {
+              this.generateKeyboard(this.isCapsLockOn ? this.EN_UPPERCASE : this.EN_LOWERCASE);
+            } else {
+              this.generateKeyboard(this.isCapsLockOn ? this.RU_UPPERCASE : this.RU_LOWERCASE);
+            }
+          });
           break;
         case "Space":
           inKey.onclick = () => {
@@ -299,6 +316,18 @@ class Keyboard {
           };
           break;
         case "Lang":
+          break;
+        case "ControlLeft":
+        case "ControlRight":
+        case "AltLeft":
+        case "AltRight":
+          inKey.onclick = () => {
+            const start = textArea.selectionStart;
+            const end = textArea.selectionEnd;
+            textArea.value = textArea.value.slice(0, start) + textArea.value.slice(end);
+            textArea.selectionStart = textArea.selectionEnd = start;
+            textArea.focus();
+          };
           break;
         default:
           inKey.onclick = () => {
@@ -313,7 +342,7 @@ class Keyboard {
     }
     return generatedRow;
   }
-  costyl() {
+  highlightShiftCaps() {
     document.addEventListener("keydown", (event) => {
       const ShiftRight = document.querySelector(".ShiftRight");
       const ShiftLeft = document.querySelector(".ShiftLeft");
@@ -323,19 +352,38 @@ class Keyboard {
         ShiftLeft.classList.add("highlight");
       }
     });
+    document.addEventListener("keyup", (event) => {
+      const ShiftRight = document.querySelector(".ShiftRight");
+      const ShiftLeft = document.querySelector(".ShiftLeft");
+      if (event.code === "ShiftRight") {
+        ShiftRight.classList.remove("highlight");
+      } else if (event.code === "ShiftLeft") {
+        ShiftLeft.classList.remove("highlight");
+      }
+    });
     document.addEventListener("keydown", (event) => {
       const CapsLock = document.querySelector(".CapsLock");
       if (event.code === "CapsLock") {
         CapsLock.classList.add("highlight");
       }
     });
+    document.addEventListener("keyup", (event) => {
+      const CapsLock = document.querySelector(".CapsLock");
+      if (event.code === "CapsLock") {
+        CapsLock.classList.remove("highlight");
+      }
+    });
+  }
+  highlightMemory() {
+    const hightlight = document.querySelectorAll(".highlight");
+    return hightlight;
   }
   generateFunctionalKeyboard() {
     this.switchLanguages();
     this.generateInformation();
     this.generateKeyboard(this.isEnglish ? this.EN_LOWERCASE : this.RU_LOWERCASE);
     this.switchCase();
-    this.costyl();
+    this.highlightShiftCaps();
   }
 }
 
